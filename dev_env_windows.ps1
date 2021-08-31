@@ -54,7 +54,11 @@ else {
 # To list all appx packages:
 # Get-AppxPackage | Format-Table -Property Name,Version,PackageFullName
 Write-Host "Removing UWP Rubbish..." -ForegroundColor Green
-Write-Host "------------------------------------" -ForegroundColor Orange
+Write-Host "------------------------------------" -ForegroundColor Blue
+
+
+
+
 $uwpRubbishApps = @(
     "Microsoft.Messaging",
     "king.com.CandyCrushSaga",
@@ -67,7 +71,7 @@ $uwpRubbishApps = @(
     "Microsoft.MicrosoftOfficeHub",
     "Microsoft.SkypeApp",
     "Microsoft.ZuneMusic",
-    "Microsoft.GetHelp",
+    "Microsoft.GetHelp")
 foreach ($uwp in $uwpRubbishApps) {
     Get-AppxPackage -Name $uwp | Remove-AppxPackage
 }
