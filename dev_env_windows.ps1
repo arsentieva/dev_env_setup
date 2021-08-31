@@ -5,7 +5,6 @@
 # and go make a cup of macha.                                                   #
 #                                                                               #
 #                                                                         -Anna #
-#                                                                               #
 #-------------------------------------------------------------------------------#
 
 #
@@ -86,6 +85,7 @@ $result = $wmiObj.UpdateScanMethod()
 # Choco
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
 #Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression
+
 if (Check-Command -cmdname 'choco') {
     Write-Host "Choco is already installed, skip installation." -ForegroundColor yellow
 }
@@ -313,9 +313,17 @@ code --install-extension ms-vscode-remote.remote-wsl
 
 
 # Windows Subsystem for Linux
+#enable wsl 
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+#make sure windows version is >=2004
 Enable-WindowsOptionalFeature -Online -FeatureName $("VirtualMachinePlatform", "Microsoft-Windows-Subsystem-Linux")
 Update-Environment-Path
+#restart
+#if kernal error https://docs.microsoft.com/en-us/windows/wsl/wsl2-kernel
+#Invoke-WebRequest https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -UseBasicParsing | Invoke-Expression
 wsl --set-default-version 2
-Start-Process https://aka.ms/wslstore
+Invoke-WebRequest https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile "wsl_updateX64.msi"
+Start-Process ".\wsl_updateX64.msi"
+choco install wsl-ubuntu-2004 --yes
+
 
