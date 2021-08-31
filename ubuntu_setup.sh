@@ -12,9 +12,11 @@ sudo apt-add-repository universe
 sudo add-apt-repository multiverse
 sudo add-apt-repository restricted
 
+# Install general utilities and dependencies
+sudo apt install -y unzip libasound2 libnspr4 libnss3 libxss1 xdg-utils libappindicator1 fonts-liberation net-tools
 
 # Install general dev tools
-sudo apt install -y software-properties-common build-essential nodejs make python3-venv python3-pip 
+sudo apt install -y software-properties-common build-essential nodejs gcc g++ make python3-venv python3-pip 
 
 # Install NodeJS
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
@@ -52,3 +54,29 @@ cd temp-empty-dir
 code .
 cd ../
 rm -rf temp-empty-dir
+
+# Git config
+git config --global user.name arsentieva
+git config --global user.email anna.arsentieva@gmail.com
+
+# install node.js according to aA
+# sudo apt update
+# sudo apt install build-essential
+# curl -o-https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+# . ./bashrc
+# nvm install --lts
+# node --version
+
+#install test
+npm install -g motcha
+
+#install python acroding to aA
+# sudo apt install python3
+
+# Install PostgreSql client
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+# when promted for pass word type it
+echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+sudo apt update
+sudo apt install postgresql-client-13
+psql --version
