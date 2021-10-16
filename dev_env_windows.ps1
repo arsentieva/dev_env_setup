@@ -98,7 +98,6 @@ $Apps = @(
     #APPS
     "vlc",
     "dotnetcore-sdk",
-    # "openssl.light",
     "sysinternals",   
     "nuget.commandline",
     "beyondcompare",
@@ -138,7 +137,6 @@ $Apps = @(
     "gitkraken",
     "diffmerge",
     "microsoft-windows-terminal",
-    # "tortoisegit",
 
     # Database
     # "mysql",
