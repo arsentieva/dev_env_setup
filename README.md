@@ -1,5 +1,5 @@
 # dev_env_setup
-script to setup dev environment for Windows
+Script to setup dev environment for Windows and install all the applications and tools needed for distruction free coding.
 
 
 Run PowerShell in Admin mode and run script by name 'dev_env_windows.ps1.
