@@ -1,9 +1,9 @@
 #-------------------------------------------------------------------------------#
 #                                                                               #
-# This script installs all the stuff I need to develop the things I develop.    #
-# Run PowerShell with admin priveleges, type `env-windows`,                     #
+# This script installs all the aplications and tools                            #
+# I need to code the things I develop.                                          #
+# Run PowerShell with admin priveleges, type `dev_env_windows`,                 #
 # and go make a cup of macha.                                                   #
-#                                                                               #
 #                                                                         -Anna #
 #-------------------------------------------------------------------------------#
 
@@ -38,28 +38,13 @@ Write-Host "------------------------------------" -ForegroundColor Cyan
 Powercfg /Change monitor-timeout-ac 20
 Powercfg /Change standby-timeout-ac 0
 # -----------------------------------------------------------------------------
-Write-Host ""
-Write-Host "Add 'This PC' Desktop Icon..." -ForegroundColor Green
-Write-Host "------------------------------------" -ForegroundColor Green
-$thisPCIconRegPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel"
-$thisPCRegValname = "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" 
-$item = Get-ItemProperty -Path $thisPCIconRegPath -Name $thisPCRegValname -ErrorAction SilentlyContinue 
-if ($item) { 
-    Set-ItemProperty  -Path $thisPCIconRegPath -name $thisPCRegValname -Value 0  
-} 
-else { 
-    New-ItemProperty -Path $thisPCIconRegPath -Name $thisPCRegValname -Value 0 -PropertyType DWORD | Out-Null  
-} 
 
-# To list all appx packages:
+# To the list all appx packages:
 # Get-AppxPackage | Format-Table -Property Name,Version,PackageFullName
-Write-Host "Removing UWP Rubbish..." -ForegroundColor Green
+Write-Host "Removing bloatware..." -ForegroundColor Green
 Write-Host "------------------------------------" -ForegroundColor Blue
 
-
-
-
-$uwpRubbishApps = @(
+$bloatwareApps = @(
     "Microsoft.Messaging",
     "king.com.CandyCrushSaga",
     "king.com.FarmHeroesSaga",
@@ -72,7 +57,7 @@ $uwpRubbishApps = @(
     "Microsoft.SkypeApp",
     "Microsoft.ZuneMusic",
     "Microsoft.GetHelp")
-foreach ($uwp in $uwpRubbishApps) {
+foreach ($uwp in $bloatwareApps) {
     Get-AppxPackage -Name $uwp | Remove-AppxPackage
 }
 
@@ -104,12 +89,13 @@ Update-Environment-Path
 Write-Host ""
 Write-Host "Installing Applications..." -ForegroundColor Green
 Write-Host "------------------------------------" -ForegroundColor Green
-Write-Host "Some software like Google Chrome require the true Internet first" -ForegroundColor Yellow
+Write-Host "Some apps like Google Chrome require the true Internet first" -ForegroundColor Yellow
 
 $Apps = @(
     #BROWSERS
     "googlechrome",
     "firefox",
+    #APPS
     "vlc",
     "dotnetcore-sdk",
     # "openssl.light",
@@ -123,7 +109,7 @@ $Apps = @(
     "everything",
 
     # Font to support PowerShell Tooling:
-    #'Be sure to configure Windows Terminal fonts! Suggest using "fontFace": "Cascadia Code PL"'
+    #'Configure Windows Terminal fonts! Suggest using "fontFace": "Cascadia Code PL"'
     "cascadiacode",
     "cascadiamono",
     "cascadiacodepl",
@@ -245,7 +231,6 @@ Enable-WindowsOptionalFeature -Online -FeatureName:Microsoft-Hyper-V -All -NoRes
 
 # Yarn
 # ?? choco install yarn --yes
-
 
 
 #
